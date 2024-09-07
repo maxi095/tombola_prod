@@ -32,7 +32,7 @@ RUN npm install
 COPY src/ ./src
 
 # Copia los archivos construidos del frontend desde la etapa de construcción
-COPY --from=build /usr/src/app/client/build /usr/src/app/src/public
+COPY --from=build /usr/src/app/client/dist /usr/src/app/src/public
 
 # Expone el puerto en el que tu servidor escuchará
 EXPOSE 5000
