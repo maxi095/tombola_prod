@@ -19,7 +19,9 @@ dotenv.config();
 export const connectDB = async () => {
     try {
         // Usa la URI de MongoDB desde variables de entorno, o una URI local como fallback
-        const mongoURI = process.env.MONGODB_URL || 'mongodb://localhost/odontodb';
+        const mongoURI = process.env.MONGODB_URL || 'mongodb://mongo:27017/odontodb';
+
+        // const mongoURI = process.env.MONGODB_URL || 'mongodb://localhost/odontodb';
         
         // Conectar a MongoDB
         await mongoose.connect(mongoURI);
