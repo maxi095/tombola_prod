@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/app.js"
+    "start": "node src/index.js",
+    "build": "cd client && npm install && npm run build",
+    "deploy": "npm run build && cd src && npm install && npm start"
   },
   "keywords": [],
   "author": "",

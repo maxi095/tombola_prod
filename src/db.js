@@ -21,10 +21,8 @@ export const connectDB = async () => {
         // Usa la URI de MongoDB desde variables de entorno, o una URI local como fallback
         const mongoURI = process.env.MONGODB_URL || 'mongodb://localhost/odontodb';
         
-        await mongoose.connect(mongoURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        // Conectar a MongoDB
+        await mongoose.connect(mongoURI);
         
         console.log("DB is connected");
     } catch (error) {
