@@ -5,6 +5,6 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - MONGODB_URL=mongodb://mongo:fGpXlcAPtbQLQSZUomgxHvWKBDxzXkRT@mongodb.railway.internal:27017
+      - MONGODB_URL=mongodb://mongo:fGpXlcAPtbQLQSZUomgxHvWKBDxzXkRT@autorack.proxy.rlwy.net:41347
     ports:
       - "5000:5000"
