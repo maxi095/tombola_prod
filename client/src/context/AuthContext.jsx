@@ -1,7 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
 import { useFormState } from "react-hook-form";
-import { array } from "zod";
 import Cookies from 'js-cookie';
 
 export const AuthContext = createContext()
