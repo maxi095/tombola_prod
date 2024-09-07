@@ -12,6 +12,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017/odontodb
     ports:
       - "5000:5000"
     depends_on:
