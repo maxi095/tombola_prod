@@ -1,26 +1,10 @@
 version: '3'
 services:
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    networks:
-      - mynetwork
-
   backend:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      - MONGODB_URL=mongodb://mongo:27017/odontodb
+      - MONGODB_URL=mongodb://mongo:fGpXlcAPtbQLQSZUomgxHvWKBDxzXkRT@mongodb.railway.internal:27017
     ports:
       - "5000:5000"
-    depends_on:
-      - mongo
-    networks:
-      - mynetwork
-
-networks:
-  mynetwork:
-    driver: bridge
