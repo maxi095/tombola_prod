@@ -19,8 +19,8 @@ dotenv.config();
 export const connectDB = async () => {
     try {
         // Usa la URI de MongoDB desde variables de entorno, o una URI local como fallback
-        console.log(process.env.MONGODB_URL)
-        const mongoURI = process.env.MONGODB_URL || 'mongodb://localhost/odontodb';
+        console.log(process.env.MONGO_PUBLIC_URL)
+        const mongoURI = process.env.MONGO_PUBLIC_URL || 'mongodb://localhost/odontodb';
 
         // const mongoURI = process.env.MONGODB_URL || 'mongodb://localhost/odontodb';
         
@@ -31,7 +31,7 @@ export const connectDB = async () => {
     } catch (error) {
         console.error("Error connecting to the database:", error);
     }
-};
+}; 
 
 
 
