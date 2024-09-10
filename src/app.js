@@ -16,7 +16,8 @@ import activityProjectRoutes from './routes/activityProject.routes.js';
 const app = express();
 
 app.use(cors({
-    origin: FRONTEND_URL,
+    // origin: FRONTEND_URL,
+    origin: 'http://odonto-front-production.up.railway.app',
     credentials: true
 }));
 app.use(morgan('dev'));
