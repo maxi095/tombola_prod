@@ -12,10 +12,7 @@ const activitySchema = new mongoose.Schema({
         ref: 'ActivityProject',
         required: true,
     },
-    dateActivity: {
-        type: Date,
-        required: true,
-    },
+
     dateCreated: {
         type: Date,
         default: Date.now,

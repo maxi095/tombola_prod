@@ -17,6 +17,7 @@ export const register = async (req, res) => {
 
     const newUser = new User({
         username,
+        firstName,
         email,
         password: passwordHash,
         roles: 'Administrador',
@@ -57,6 +58,8 @@ export const login = async (req, res) => {
         res.json({
             id: userFound._id,
             username: userFound.username,
+            firstName: userFound.firstName,
+            lastName: userFound.lastName,
             email: userFound.email,
             createdAt: userFound.createdAt,
             updateAt: userFound.updatedAt,
@@ -81,6 +84,8 @@ export const profile = async (req, res) => {
     return res.json({
         id: userFound._id,
         username: userFound.username,
+        firstName: userFound.firstName,
+        lastName: userFound.lastName,
         email: userFound.email,
         createdAt: userFound.createdAt,
         updateAt: userFound.updateAt,
@@ -102,6 +107,8 @@ export const verifyToken = async (req, res) => {
         return res.json({
             id: userFound._id,
             username: userFound.username,
+            firstName: userFound.firstName,
+            lastName: userFound.lastName,
             email: userFound.email,
             roles: userFound.roles,
         })

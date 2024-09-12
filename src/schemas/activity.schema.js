@@ -7,7 +7,5 @@ export const createActivitySchema = z.object({
     activityProjectId: z.string({
         required_error: 'Activity Project ID is required',
     }),
-    dateActivity: z.string({
-        required_error: 'Date of activity is required',
-    }),
+    
 });

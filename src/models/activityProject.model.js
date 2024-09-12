@@ -14,6 +14,10 @@ const activityProjectSchema = new mongoose.Schema({
         ref: 'Project',
         required: true,
     },
+    dateActivity: {
+        type: Date,
+        required: true,
+    },
     hours: {
         type: Number, // Almacena las horas como un número entero
         required: true,

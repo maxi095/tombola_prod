@@ -8,6 +8,9 @@ export const createActivityProjectSchema = z.object({
     project: z.string({
         required_error: 'Project is required',
     }),
+    dateActivity: z.string({
+        required_error: "Date activity is required"
+    }),
     hours: z.number({
         required_error: 'Hours are required',
     }).int().positive(), // Asegúrate de que las horas sean un entero positivo

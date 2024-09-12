@@ -1,3 +1,4 @@
+import { date } from 'zod';
 import Activity from '../models/activity.model.js';
 import User from '../models/user.model.js';
 
@@ -21,8 +22,8 @@ export const getActivities = async (req, res) => {
 
 // Crear una nueva actividad
 export const createActivity = async (req, res) => {
-    const { studentId, activityProjectId, dateActivity } = req.body;
-
+    const { studentId, activityProjectId } = req.body;
+    // console.log( "Estudiante: ", studentId, " Actividad: ", activityProjectId, studentId, " Fecha actividad: ", dateActivity)
     if (!studentId) {
         return res.status(400).json({ message: 'User ID is required' });
     }
@@ -38,7 +39,6 @@ export const createActivity = async (req, res) => {
         const newActivity = new Activity({
             studentId: user._id,
             activityProjectId,
-            dateActivity,
             user: req.user.id // El usuario que está creando la actividad
         });
 

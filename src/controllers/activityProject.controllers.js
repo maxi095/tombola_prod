@@ -12,8 +12,9 @@ export const getActivityProjects = async (req, res) => {
 };
 
 export const createActivityProject = async (req, res) => {
-    const { name, description, project, hours } = req.body;
-
+    const { name, description, project, dateActivity, hours } = req.body;
+    //console.log(" Fecha actividad: ", dateActivity)
+    
     try {
         const foundProject = await Project.findById(project);
         if (!foundProject) {
@@ -24,6 +25,7 @@ export const createActivityProject = async (req, res) => {
             name,
             description,
             project,
+            dateActivity,
             hours,
             user: req.user.id // Asumiendo que tienes autenticación y el usuario está en req.user
         });
@@ -56,7 +58,7 @@ export const deleteActivityProject = async (req, res) => {
 };
 
 export const updateActivityProject = async (req, res) => {
-    const { name, description, project, hours } = req.body;
+    const { name, description, project, dateActivity, hours } = req.body;
 
     try {
         const activityProject = await ActivityProject.findById(req.params.id);
@@ -66,6 +68,7 @@ export const updateActivityProject = async (req, res) => {
         activityProject.name = name !== undefined ? name : activityProject.name;
         activityProject.description = description !== undefined ? description : activityProject.description;
         activityProject.project = project !== undefined ? project : activityProject.project;
+        activityProject.dateActivity = dateActivity !== undefined ? dateActivity : activityProject.dateActivity;
         activityProject.hours = hours !== undefined ? hours : activityProject.hours;
 
         const updatedActivityProject = await activityProject.save();
