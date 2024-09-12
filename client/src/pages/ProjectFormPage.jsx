@@ -114,7 +114,7 @@ function ProjectFormPage() {
           </select>
           {errors.dimension && <p className="form-error">La dimensión es requerida</p>}
 
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Guardar</button>
+          <button type="submit" className="button button--save">Guardar</button>
         </form>
       </div>
     </div>

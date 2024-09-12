@@ -36,7 +36,7 @@ function BarraTareas() {
             <ul className="navbar-links">
                 {isAuthenticated ? (
                     <>
-                        <li className="navbar-welcome">Bienvenido {user.firstName}</li>
+                        <li className="navbar-welcome">Hola {user.firstName}</li>
                         <li>
                             <Link 
                                 to='/' 
