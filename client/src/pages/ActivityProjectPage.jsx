@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useActivityProjects } from "../context/ActivityProjectContext"; 
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
 import '../assets/css/Global.css';  
 import '../assets/css/Table.css';   
 import '../assets/css/Button.css'; 
@@ -16,6 +18,7 @@ function ActivityProjectPage() {
         console.error("Error fetching activity projects:", error);
       }
     };
+    //console.log(activityProjects)
     fetchActivityProjects();
   }, [getActivityProjects]);
 
@@ -32,8 +35,15 @@ function ActivityProjectPage() {
   };
 
   if (!activityProjects || activityProjects.length === 0) {
-    return <h1 className="page-title">No hay actividades de proyecto</h1>;
-  }
+    return ( 
+      <div>
+      <h1 className="page-title">No existen actividades de proyecto registradas</h1>;
+      <Link to="/activity-projects/new" className="button button--new mb-4 inline-block">
+          Crear actividad
+        </Link>
+      </div>
+        );
+    }
 
   return (
     <div className="container">
@@ -46,6 +56,7 @@ function ActivityProjectPage() {
           <tr>
             <th>Proyecto</th>
             <th>Nombre actividad</th>
+            <th>Fecha de actividad</th>
             <th>Descripción</th>
             <th>Horas acreditadas</th>
             <th>Acciones</th>
@@ -56,6 +67,7 @@ function ActivityProjectPage() {
             <tr key={activityProject._id}>
               <td>{activityProject.project?.name || 'Sin proyecto'}</td>
               <td>{activityProject.name}</td>
+              <td>{dayjs(activityProject.dateActivity).utc().format('DD/MM/YYYY') || 'Sin fecha de actividad'}</td>
               <td>{activityProject.description}</td>
               <td>{activityProject.hours}</td>
               <td>

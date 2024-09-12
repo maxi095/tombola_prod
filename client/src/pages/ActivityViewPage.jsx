@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useActivity } from "../context/ActivityContext";
 import { useParams, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import '../assets/css/Global.css'; 
 import '../assets/css/Button.css'; 
 import '../assets/css/Table.css';
@@ -16,6 +18,7 @@ function ActivityViewPage() {
       if (params.id) {
         const activityData = await getActivity(params.id);
         setActivity(activityData);
+        //console.log(activityData)
       }
     }
     loadActivity();
@@ -29,14 +32,13 @@ function ActivityViewPage() {
 
   return (
     <div className="container">
-      <h1 className="page-title">Detalle de actividad</h1>
+      <h1 className="page-title">Actividad: {activity.activityProjectId?.name}</h1>
       <div className="body">
-        <p><strong>Proyecto:</strong> {activity.activityProjectId?.name || "Sin proyecto asociado"}</p>
+        <p><strong>Proyecto:</strong> {activity.activityProjectId?.project.name || "Sin proyecto asociado"}</p>
         <p><strong>Nombre estudiante:</strong> {activity.studentId?.firstName || "N/A"}</p>
         <p><strong>Apellido estudiante:</strong> {activity.studentId?.lastName || "N/A"}</p>
         <p><strong>Unidad académica:</strong> {activity.studentId?.academicUnit?.name || "N/A"}</p>
-        <p><strong>Fecha de actividad:</strong> {activity.dateActivity || "N/A"}</p>
-        <p><strong>Actividad:</strong> {activity.activityProjectId?.name || "N/A"}</p>
+        <p><strong>Fecha de actividad:</strong> {dayjs.utc(activity.activityProjectId?.dateActivity).format('DD/MM/YYYY') || "N/A"}</p>
         <p><strong>Horas acreditadas:</strong> {activity.activityProjectId?.hours || "N/A"}</p>
       </div>
       <button 

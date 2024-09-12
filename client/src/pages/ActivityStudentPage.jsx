@@ -48,7 +48,14 @@ function ActivityStudentPage() {
   }
 
   if (!activities || activities.length === 0) {
-    return <h1>No hay actividades disponibles</h1>;
+    return ( 
+    <div>
+    <h1 className="page-title">No existen actividades registradas</h1>;
+    <Link to="/activities/new" className="button button--new mb-4 inline-block">
+        Crear actividad
+      </Link>
+    </div>
+      );
   }
 
   return (
@@ -91,7 +98,7 @@ function ActivityStudentPage() {
                           {activity.activityProjectId?.name || 'Sin nombre de actividad'}
                       </td>
                       <td>
-                          {dayjs(activity.dateActivity).utc().format('DD/MM/YYYY') || 'Sin fecha de actividad'}
+                          {dayjs(activity.activityProjectId?.dateActivity).utc().format('DD/MM/YYYY') || 'Sin fecha de actividad'}
                       </td>
                       <td>
                           {activity.activityProjectId?.hours || 'Sin horas de actividad'}

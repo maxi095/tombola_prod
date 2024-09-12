@@ -18,10 +18,6 @@ function Home() {
                     <h2>Fácil Seguimiento de Actividades</h2>
                     <p>Accede fácilmente al registro de tus actividades y proyectos.</p>
                 </div>
-                <div className="feature">
-                    <h2>Gestión para Administradores</h2>
-                    <p>Control total para supervisores y administradores de unidades académicas.</p>
-                </div>
             </section>
 
             {/* Footer */}

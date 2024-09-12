@@ -6,20 +6,20 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   // Verifica que el usuario esté autenticado
   if (!user) {
-    console.log("Usuario no autenticado. Redirigiendo a login.");
+    //console.log("Usuario no autenticado. Redirigiendo a login.");
     return <Navigate to="/login" replace />;
   }
 
-  console.log("Rol del usuario (tipo y valor):", typeof user.roles, user.roles); 
-  console.log("Roles permitidos (tipo y valor):", typeof allowedRoles, allowedRoles);
+  //console.log("Rol del usuario (tipo y valor):", typeof user.roles, user.roles); 
+  //console.log("Roles permitidos (tipo y valor):", typeof allowedRoles, allowedRoles);
 
   // Verifica si el rol del usuario está dentro de los roles permitidos
   const userHasAllowedRole = allowedRoles.includes(user.roles);
 
-  console.log("¿Usuario tiene rol permitido?", userHasAllowedRole);
+  //console.log("¿Usuario tiene rol permitido?", userHasAllowedRole);
 
   if (!userHasAllowedRole) {
-    console.log("Redirigiendo a la página de 'no autorizado'");
+    //console.log("Redirigiendo a la página de 'no autorizado'");
     return <Navigate to="/unauthorized" replace />;
   }
 

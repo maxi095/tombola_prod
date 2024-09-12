@@ -5,6 +5,7 @@ import '../assets/css/Navbar.css';
 
 function BarraTareas() {
     const { isAuthenticated, logout, user } = useAuth();
+    console.log(user)
     const [isMobile, setIsMobile] = useState(false);
 
     // Función para verificar el tamaño de la pantalla
@@ -35,7 +36,7 @@ function BarraTareas() {
             <ul className="navbar-links">
                 {isAuthenticated ? (
                     <>
-                        <li className="navbar-welcome">Bienvenido {user.username}</li>
+                        <li className="navbar-welcome">Bienvenido {user.firstName}</li>
                         <li>
                             <Link 
                                 to='/' 
@@ -56,14 +57,14 @@ function BarraTareas() {
                                 Iniciar sesión
                             </Link>
                         </li>
-                        <li>
+                        {/*<li>
                             <Link 
                                 to='/register' 
                                 className="btn"
                             >
                                 Registrarse
                             </Link>
-                        </li>
+                        </li>*/}
                     </>
                 )}
             </ul>

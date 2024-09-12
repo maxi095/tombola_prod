@@ -33,7 +33,14 @@ function ProjectPage() {
   };
 
   if (!projects || projects.length === 0) {
-    return <h1>No projects</h1>;
+    return ( 
+      <div>
+      <h1 className="page-title">No existen proyectos registrados</h1>;
+      <Link to="/projects/new" className="button button--new mb-4 inline-block">
+          Crear proyecto
+        </Link>
+      </div>
+        );
   }
 
   return (

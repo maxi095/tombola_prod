@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useActivityProjects } from "../context/ActivityProjectContext";
 import { useActivity } from "../context/ActivityContext";
 import { useParams, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import '../assets/css/Global.css'; 
 import '../assets/css/Button.css'; 
 import '../assets/css/Table.css';
@@ -48,11 +50,11 @@ function ActivityProjectViewPage() {
 
   if (loading) return <p>Cargando...</p>;
 
-  if (!activityProject) return <p>Proyecto no encontrado</p>;
+  if (!activityProject) return <p>Actividad de proyecto no encontrada</p>;
 
   return (
     <div>
-      <h1 className="page-title">Detalle del proyecto de actividad</h1>
+      <h1 className="page-title">Actividad: {activityProject.name}</h1>
       <div>
       {/* Tabs */}
       <div className="mb-4">
@@ -72,8 +74,8 @@ function ActivityProjectViewPage() {
 
       {activeTab === "details" && (
         <div className="body">
-          <p className="mb-2"><strong>Nombre del Proyecto:</strong> {activityProject.name}</p>
           <p className="mb-2"><strong>Descripción:</strong> {activityProject.description}</p>
+          <p className="mb-2"><strong>Fecha:</strong> {dayjs.utc(activityProject.dateActivity).format("DD-MM-YYYY")}</p>
           <p className="mb-2"><strong>Horas acreditadas:</strong> {activityProject.hours}</p>
           <p className="mb-2"><strong>Proyecto asociado:</strong> {activityProject.project?.name || "Sin proyecto asociado"}</p>
         </div>
@@ -88,14 +90,16 @@ function ActivityProjectViewPage() {
             <table className="standard-table">
               <thead>
                 <tr>
-                  <th>Nombre de Usuario</th>
+                  <th>Estudiante</th>
+                  <th>Nro documento</th>
                   <th>Email</th>
                 </tr>
               </thead>
               <tbody>
                 {users.map(user => (
                   <tr key={user._id}>
-                    <td>{user.username}</td>
+                    <td>{user.lastName} {user.firstName}</td>
+                    <td>{user.document}</td>
                     <td>{user.email}</td>
                   </tr>
                 ))}

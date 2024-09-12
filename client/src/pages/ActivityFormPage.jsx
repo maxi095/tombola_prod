@@ -1,3 +1,4 @@
+
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -51,7 +52,6 @@ function ActivityFormPage() {
               value: activity.studentId?._id,
               label: `${activity.studentId?.firstName} ${activity.studentId?.lastName} (${activity.studentId?.document})`
             });
-            setValue('dateActivity', dayjs.utc(activity.dateActivity).format('YYYY-MM-DD'));
             setSelectedProject({
               value: activity.activityProjectId?.project?._id,
               label: activity.activityProjectId?.project?.name
@@ -125,10 +125,11 @@ function ActivityFormPage() {
     const dataValid = {
       ...data,
       studentId: selectedStudent ? selectedStudent.value : null,
-      dateActivity: dayjs.utc(data.dateActivity).format(),
       projectId: selectedProject ? selectedProject.value : null,
       activityProjectId: selectedActivity ? selectedActivity.value : null,
+      
     };
+    //console.log(dataValid)
 
     try {
       if (params.id) {
@@ -178,17 +179,26 @@ function ActivityFormPage() {
           {/* Campo para seleccionar el proyecto usando react-select */}
           <label htmlFor="projectId" className="form-label">Proyecto</label>
           <Select
-            value={selectedProject}
-            onChange={handleProjectChange}
-            options={activityProjects.map(activity => ({
-              value: activity.project?._id,
-              label: activity.project?.name
-            }))}
-            className="my-2"
-            placeholder="Seleccione un proyecto"
-            styles={customSelectStyles}
-            isClearable
-          />
+  value={selectedProject}
+  onChange={handleProjectChange}
+  // Filtrar proyectos únicos usando reduce
+  options={activityProjects
+    .reduce((acc, activity) => {
+      const projectExists = acc.find(proj => proj.value === activity.project?._id);
+      if (!projectExists && activity.project) {
+        acc.push({
+          value: activity.project._id,
+          label: activity.project.name
+        });
+      }
+      return acc;
+    }, [])
+  }
+  className="my-2"
+  placeholder="Seleccione un proyecto"
+  styles={customSelectStyles}
+  isClearable
+/>
           {errors.projectId && <p className="form-error">{errors.projectId.message}</p>}
 
           {/* Campo para seleccionar la actividad de proyecto usando react-select */}
@@ -207,15 +217,6 @@ function ActivityFormPage() {
             isDisabled={!selectedProject} 
           />
           {errors.activityProjectId && <p className="form-error">{errors.activityProjectId.message}</p>}
-
-          {/* Campo para la fecha de la actividad */}
-          <label htmlFor="dateActivity" className="form-label">Fecha de actividad</label>
-          <input 
-            type="date" 
-            {...register('dateActivity', { required: "Fecha de la actividad es requerida" })}
-            className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2" 
-          />
-          {errors.dateActivity && <p className="form-error">{errors.dateActivity.message}</p>}
 
           <button type="submit" className="button button--save">Guardar</button>
         </form>

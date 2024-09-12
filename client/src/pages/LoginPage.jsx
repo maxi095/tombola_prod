@@ -3,6 +3,9 @@ import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+import '../assets/css/Global.css';  
+import '../assets/css/Table.css';   
+import '../assets/css/Button.css'; 
 
 function LoginPage() {
   
@@ -31,36 +34,36 @@ function LoginPage() {
   }, [isAuthenticated, user, navigate]);
 
   return (
-    <div className="flex h-[calc(100vh-100px)] items-center justify-center">
-      <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
+    <div className="flex-center-container">
+      <div className="inner-box">
+      <h2 className="form-sub-title">Iniciar sesión</h2>
           {
               signinErrors.map((error, i ) => (
-                  <div className="bg-red-500 p-2 text-white my-2" key={i}>
+                  <div className="form-error" key={i}>
                       {error}
                   </div>
               ))
           }
-        <h1 className="text-2xl font-bold my-2">Iniciar sesión</h1>
 
         <form onSubmit={onSubmit}>
             <input type = "email" {...register("email", {required: true})}
-                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                className="form-input"
                 placeholder="Email"/>
-                {errors.email && <p className = "text-red-500">Email es requerido</p>}
+                {errors.email && <p className = "form-error">Email es requerido</p>}
             <input type = "password" {...register("password", {required: true})}
-                className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                className="form-input"
                 placeholder="Contraseña"/>
-                {errors.password && <p className = "text-red-500">Contraseña es requerida</p>}
+                {errors.password && <p className = "form-error">Contraseña es requerida</p>}
             
             <button type = "submit"
-            className="bg-sky-500 text-white px-4 py-2 rounded-md my-2">
+            className="button button--save">
                 Ingresar
             </button>
         </form>
 
-        <p className="flex gap-x-2 justify-between">
-            ¿No tienes una cuenta? <Link to="/register" className="text-sky-500"> Registrarse </Link>
-        </p>
+        {/*<p className="flex gap-x-2 justify-between">
+            ¿No tienes una cuenta? <Link to="/register" className="text-gray-100"> Registrarse </Link>
+        </p>*/}
       </div>
     </div>
   )

@@ -24,6 +24,7 @@ function ActivityProjectFormPage() {
   const params = useParams();
 
   const [selectedProject, setSelectedProject] = useState(null);
+  const [projectError, setProjectError] = useState(false); // Nueva variable para el error de proyecto
 
   useEffect(() => {
     const loadProjects = async () => {
@@ -45,6 +46,7 @@ function ActivityProjectFormPage() {
           if (activityProject) {
             setValue("name", activityProject.name);
             setValue("description", activityProject.description);
+            setValue("dateActivity", dayjs.utc(activityProject.dateActivity).format("YYYY-MM-DD"));  // Formatear para input tipo "date"
             setValue("hours", activityProject.hours); 
 
             // Set the selected project in the state
@@ -63,10 +65,17 @@ function ActivityProjectFormPage() {
   }, [params.id, getActivityProject, setValue, projects]);
 
   const onSubmit = handleSubmit(async (data) => {
+    if (!selectedProject) {
+      setProjectError(true); // Mostrar mensaje de error si no se selecciona proyecto
+      return;
+    }
+
     const dataValid = {
       ...data,
       date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format(),
-      project: selectedProject?.value || "", // Asigna el valor del proyecto seleccionado
+      project: selectedProject.value, // Asigna el valor del proyecto seleccionado
+      dateActivity: dayjs.utc(data.dateActivity).format(),  // Formatear a UTC
+      hours: Number(data.hours), // Asegurarse de que es un número
     };
 
     try {
@@ -81,11 +90,16 @@ function ActivityProjectFormPage() {
     }
   });
 
+  // Validación personalizada para el selector de proyecto
+  const handleProjectChange = (option) => {
+    setSelectedProject(option);
+    setProjectError(false); // Quitar mensaje de error al seleccionar un proyecto
+  };
+
   return (
     <div className="flex-center-container">
-      
       <div className="inner-box">
-      <h2 className="form-sub-title">Actividad de proyecto</h2>
+        <h2 className="form-sub-title">Actividad de proyecto</h2>
         {
           activityErrors?.map((error, i) => (
             <div className="form-error" key={i}>
@@ -101,8 +115,6 @@ function ActivityProjectFormPage() {
             {...register("name", { required: true })}
             className="form-input"
             autoFocus
-
-
           />
           {errors.name && <p className="form-error">El nombre es requerido</p>}
 
@@ -117,13 +129,21 @@ function ActivityProjectFormPage() {
           <label htmlFor="project" className="form-label">Proyecto</label>
           <Select
             value={selectedProject}
-            onChange={setSelectedProject}
+            onChange={handleProjectChange}
             options={projects.map(p => ({ value: p._id, label: p.name }))}
             placeholder="Selecciona un proyecto"
             styles={customSelectStyles}
             className="my-2"
           />
-          {errors.project && <p className="form-error">El proyecto es requerido</p>}
+          {projectError && <p className="form-error">El proyecto es requerido</p>} {/* Mostrar error solo si no se selecciona proyecto */}
+
+          <label htmlFor="dateActivity" className="form-label">Fecha</label>
+          <input 
+            type="date" 
+            {...register('dateActivity', { required: "Fecha de la actividad es requerida" })}
+            className="form-input" 
+          />
+          {errors.dateActivity && <p className="form-error">{errors.dateActivity.message}</p>}
 
           <label htmlFor="hours" className="form-label">Horas acreditadas</label>
           <input

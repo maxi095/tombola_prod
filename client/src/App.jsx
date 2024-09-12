@@ -57,7 +57,7 @@ function App() {
                   <Routes>
                     <Route path= '/' element = {<HomePage/>} />
                     <Route path= '/login' element = {<LoginPage/>} />
-                    <Route path= '/register' element = {<RegisterPage/>} />
+                    <Route path= '/register' element = {<ProtectedRoute allowedRoles={['Administrador']}><RegisterPage /></ProtectedRoute>} />
 
                     
                       {/*<Route path= '/tasks' element = {<TaskPage/>} />
