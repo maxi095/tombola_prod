@@ -22,7 +22,10 @@ export const connectDB = async () => {
         
         //const mongoURI = process.env.MONGO_PUBLIC_URL || 'mongodb://localhost/odontodb';
         
-        const mongoURI = 'mongodb://mongo:fGpXlcAPtbQLQSZUomgxHvWKBDxzXkRT@autorack.proxy.rlwy.net:41347';
+        //const mongoURI = 'mongodb://mongo:fGpXlcAPtbQLQSZUomgxHvWKBDxzXkRT@autorack.proxy.rlwy.net:41347';
+
+        //BD prueba 18/09/2024
+        const mongoURI = 'mongodb://mongo:zuCHpzaGmDAisenVvriLNotBwtcqHInG@junction.proxy.rlwy.net:38862'
         
         // Conectar a MongoDB
         await mongoose.connect(mongoURI);
