@@ -20,12 +20,12 @@ export const connectDB = async () => {
     try {
         // Usa la URI de MongoDB desde variables de entorno, o una URI local como fallback
         
-        //const mongoURI = process.env.MONGO_PUBLIC_URL || 'mongodb://localhost/odontodb';
+        const mongoURI = process.env.MONGO_PUBLIC_URL || 'mongodb://localhost/odontodb';
         
         //const mongoURI = 'mongodb://mongo:fGpXlcAPtbQLQSZUomgxHvWKBDxzXkRT@autorack.proxy.rlwy.net:41347';
 
         //BD prueba 18/09/2024
-        const mongoURI = 'mongodb://mongo:zuCHpzaGmDAisenVvriLNotBwtcqHInG@junction.proxy.rlwy.net:38862'
+        //const mongoURI = 'mongodb://mongo:zuCHpzaGmDAisenVvriLNotBwtcqHInG@junction.proxy.rlwy.net:38862'
         
         // Conectar a MongoDB
         await mongoose.connect(mongoURI);

@@ -13,6 +13,28 @@ export const getUsers = async (req, res) => {
     }
 };
 
+export const getStudents = async (req, res) => {
+    try {
+        const users = await User.find({roles: 'Estudiante'})
+            .select('email username firstName lastName academicUnit document roles') // Seleccionar solo los campos necesarios
+            .populate('academicUnit', 'name'); // Poblar el campo academicUnit con el nombre de la unidad académica
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+export const getDirectors = async (req, res) => {
+    try {
+        const users = await User.find({roles: 'Director'})
+            .select('email username firstName lastName academicUnit document roles') // Seleccionar solo los campos necesarios
+            .populate('academicUnit', 'name'); // Poblar el campo academicUnit con el nombre de la unidad académica
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 // Obtener un usuario específico por ID
 export const getUser = async (req, res) => {
     try {
@@ -31,6 +53,36 @@ export const getUser = async (req, res) => {
 // Crear un nuevo usuario
 export const createUser = async (req, res) => {
     const { username, email, password, firstName, lastName, document, academicUnit, roles } = req.body;
+
+    // Hash de la contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = new User({ username, email, password: hashedPassword, firstName, lastName, document, academicUnit, roles });
+    try {
+        const savedUser = await user.save();
+        res.status(201).json(savedUser);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
+
+export const createStudent = async (req, res) => {
+    const { username, email, password, firstName, lastName, document, academicUnit, roles = 'Estudiante' } = req.body;
+
+    // Hash de la contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = new User({ username, email, password: hashedPassword, firstName, lastName, document, academicUnit, roles });
+    try {
+        const savedUser = await user.save();
+        res.status(201).json(savedUser);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+};
+
+export const createDirector = async (req, res) => {
+    const { username, email, password, firstName, lastName, document, academicUnit, roles = 'Director' } = req.body;
 
     // Hash de la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);

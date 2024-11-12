@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import '../assets/css/Global.css';  
 import '../assets/css/Table.css';   
 import '../assets/css/Button.css'; 
+import { useAuth } from "../context/AuthContext";
 
 function AcademicUnitPage() {
   const { getAcademicUnits, academicUnits, deleteAcademicUnit } = useAcademicUnits();
+  const { user } = useAuth(); 
 
   useEffect(() => {
+    if (user) {
     const fetchAcademicUnits = async () => {
       try {
         await getAcademicUnits(); // Asegúrate de que getAcademicUnits maneje posibles errores
@@ -18,7 +21,7 @@ function AcademicUnitPage() {
     };
   
     fetchAcademicUnits();
-  }, [getAcademicUnits]); // Añadido getAcademicUnits a la lista de dependencias
+  }}, [getAcademicUnits]); // Añadido getAcademicUnits a la lista de dependencias
   
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar esta unidad académica?");

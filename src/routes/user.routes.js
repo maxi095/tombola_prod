@@ -5,7 +5,11 @@ import {
     getUsers,
     createUser,
     updateUser,
-    deleteUser } 
+    deleteUser,
+    getStudents,
+    getDirectors, 
+    createStudent,
+    createDirector} 
     from "../controllers/user.controllers.js";
 
 import { validateSchema } from "../middlewares/validator.middleware.js";
@@ -20,5 +24,9 @@ router.get('/users/:id', authRequired, checkRole(['Administrador']), getUser);
 router.post('/users', authRequired, checkRole(['Administrador']), validateSchema(createUserSchema), createUser);
 router.delete('/users/:id', authRequired, checkRole(['Administrador']), deleteUser);
 router.put('/users/:id', authRequired, checkRole(['Administrador']), updateUser);
+router.get('/students', authRequired, checkRole(['Administrador','Secretario', 'Director']), getStudents);
+router.post('/students', authRequired, checkRole(['Administrador', 'Secretario', 'Director']), validateSchema(createUserSchema), createStudent);
+router.get('/directors', authRequired, checkRole(['Administrador','Secretario']), getDirectors);
+router.post('/directors', authRequired, checkRole(['Administrador', 'Secretario', 'Director']), validateSchema(createUserSchema), createDirector);
 
 export default router

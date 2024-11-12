@@ -15,6 +15,9 @@ import UserFormPage from "./pages/UserFormPage";
 import UserViewPage from "./pages/UserViewPage";
 import AcademicUnitPage from "./pages/AcademicUnitPage";
 import ProjectPage from "./pages/ProjectPage";
+import StudentPage from "./pages/StudentPage";
+import StudentFormPage from "./pages/StudentFormPage";
+import DirectorPage from "./pages/DirectorPage";
 
 {/*import ProtectedRoute from "./ProtectedRoute";*/}
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -36,7 +39,9 @@ import ActivityStudentPage from "./pages/ActivityStudentPage";
 import Unauthorized from "./pages/Unauthorized";
 import ActivityProjectViewPage from "./pages/ActivityProjectViewPage";
 
+
 import './assets/css/Global.css';
+
 
 
 function App() {
@@ -57,10 +62,10 @@ function App() {
                   <Routes>
                     <Route path= '/' element = {<HomePage/>} />
                     <Route path= '/login' element = {<LoginPage/>} />
-                    <Route path= '/register' element = {<ProtectedRoute allowedRoles={['Administrador']}><RegisterPage /></ProtectedRoute>} />
-
                     
-                      {/*<Route path= '/tasks' element = {<TaskPage/>} />
+                    {/*<Route path= '/register' element = {<RegisterPage/>} />
+            
+                      <Route path= '/tasks' element = {<TaskPage/>} />
                       <Route path= '/tasks/new' element = {<TaskFormPage/>} />
                       <Route path= '/tasks/:id' element = {<TaskFormPage/>} />*/}
                       
@@ -70,6 +75,12 @@ function App() {
                       <Route path='/users/new' element={<ProtectedRoute allowedRoles={['Administrador']}><UserFormPage /></ProtectedRoute>} />
                       <Route path='/users/edit/:id' element={<ProtectedRoute allowedRoles={['Administrador']}><UserFormPage /></ProtectedRoute>} />
                       <Route path='/users/view/:id' element={<ProtectedRoute allowedRoles={['Administrador']}><UserViewPage /></ProtectedRoute>} />
+
+                      <Route path='/directors' element={<ProtectedRoute allowedRoles={['Administrador', 'Secretario']}><DirectorPage /></ProtectedRoute>} />
+
+                      <Route path='/students' element={<ProtectedRoute allowedRoles={['Administrador', 'Secretario', 'Director']}><StudentPage /></ProtectedRoute>} />
+                      <Route path='/students/new' element={<ProtectedRoute allowedRoles={['Administrador', 'Secretario', 'Director']}><StudentFormPage /></ProtectedRoute>} />
+                      <Route path='/students/edit/:id' element={<ProtectedRoute allowedRoles={['Administrador', 'Secretario', 'Director']}><StudentFormPage /></ProtectedRoute>} />
 
                       <Route path= '/academic-units' element = {<ProtectedRoute allowedRoles={['Administrador']}><AcademicUnitPage/></ProtectedRoute>} />
                       <Route path= '/academic-units/new' element = {<ProtectedRoute allowedRoles={['Administrador']}><AcademicUnitFormPage/></ProtectedRoute>} />

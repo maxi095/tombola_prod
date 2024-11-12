@@ -32,6 +32,12 @@ const Sidebar = () => {
         {/* Enlaces visibles para Administrador, Director, y Secretario */}
         {['Administrador', 'Secretario', 'Director'].includes(user.roles) && (
           <>
+            <Link to="/directors" className="sidebar-link">
+              Directores
+            </Link>
+            <Link to="/students" className="sidebar-link">
+              Estudiantes
+            </Link>
             <Link to="/projects" className="sidebar-link">
               Proyectos
             </Link>
