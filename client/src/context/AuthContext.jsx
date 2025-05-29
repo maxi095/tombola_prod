@@ -34,23 +34,25 @@ export const AuthProvider = ({children}) => {
     
     const signin = async (user) => {
         try {
-            const res = await loginRequest(user)
-            //console.log(res)
+            const res = await loginRequest(user);
             setIsAuthenticated(true);
             setUser(res.data);
+            localStorage.setItem("user", JSON.stringify(res.data)); // 👈 Guardar user
         } catch (error) {
             if (Array.isArray(error.response.data)) {
                 return setErrors(error.response.data)
             }  
             setErrors([error.response.data.message])
         }
-    }
+    };
 
     const logout = () => {
         Cookies.remove("token");
+        localStorage.removeItem("user"); // 👈 limpiar también el user
         setIsAuthenticated(false);
         setUser(null);
-    }
+    };
+    
 
     const hasRole = (role) => {
         return user?.roles === role; // Aquí verificamos si el rol del usuario coincide con el rol esperado
@@ -68,29 +70,43 @@ export const AuthProvider = ({children}) => {
     useEffect(() => {
         async function checkLogin () {
             const cookies = Cookies.get();
-
+    
             if (!cookies.token) {
                 setIsAuthenticated(false);
                 setLoading(false);
-                return setUser(null);
+                setUser(null);
+                return;
             }
+    
             try {
                 const res = await verifyTokenRequest(cookies.token);
+    
                 if (!res.data) {
                     setIsAuthenticated(false);
+                    setUser(null);
                     setLoading(false);
                     return;
                 }
-
+    
                 setIsAuthenticated(true);
                 setUser(res.data);
+                localStorage.setItem("user", JSON.stringify(res.data)); // 👈 también aquí
                 setLoading(false);
+    
             } catch (error) {
                 setIsAuthenticated(false);
                 setUser(null);
+                localStorage.removeItem("user"); // 👈 limpiar si falla
                 setLoading(false);
-            } 
+            }
         }
+    
+        // 👇 Restaurar si hay un user en localStorage
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    
         checkLogin();
     }, []);
 

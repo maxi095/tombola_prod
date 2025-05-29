@@ -1,53 +1,53 @@
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
-import '../assets/css/Global.css'; // Asegúrate de importar el CSS global
-import logo from '../assets/images/logo_unc.png';
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   const { user } = useAuth();
+  const location = useLocation();
+
+  // Función mejorada para marcar como activo según coincidencia exacta
+  const isActive = (path) => location.pathname === path;
+
+  // Componente auxiliar con clase activa solo en coincidencia exacta
+  const SidebarLink = ({ to, children }) => (
+    <Link to={to} className={`sidebar-link ${isActive(to) ? 'active' : ''}`}>
+      {children}
+    </Link>
+  );
 
   return (
     <div className="sidebar">
-      <div className="sidebar-header">
+      {/*<div className="sidebar-header">
         <img src={logo} alt="Logo del Sistema" className="sidebar-logo" />
-      </div>
+      </div>*/}
 
       <nav className="sidebar-nav">
-        <Link to="/profile" className="sidebar-link">
-          Perfil
-        </Link>
+        {/*<SidebarLink to="/profile">Perfil</SidebarLink>*/}
 
-        {/* Enlaces visibles solo para Administrador */}
-        {user.roles === 'Administrador' && (
+        {['Administrador', 'Vendedor'].includes(user.roles) && (
           <>
-            <Link to="/users" className="sidebar-link">
-              Usuarios
-            </Link>
-            <Link to="/academic-units" className="sidebar-link">
-              Unidades académicas
-            </Link>
+            <SidebarLink to="/dashboard">Dashboard</SidebarLink>
+            <SidebarLink to="/editions">Ediciones</SidebarLink>
+            <SidebarLink to="/bingoCards">Cartones</SidebarLink>
+            <SidebarLink to="/sales">Ventas</SidebarLink>
+            <SidebarLink to="/salesTarjetaUnica">Ventas Tarjeta única</SidebarLink>
+            <SidebarLink to="/quotas">Cuotas vencidas</SidebarLink>
+            <SidebarLink to="/clients">Asociados</SidebarLink>
+            <SidebarLink to="/sellers">Vendedores</SidebarLink>
+            <SidebarLink to="/sellerPayments">Pagos de vendedores</SidebarLink>
+            <a
+              href="/bingoCardStatus"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sidebar-link"
+            >
+              Estado de cartón
+            </a>
           </>
         )}
 
-        {/* Enlaces visibles para Administrador, Director, y Secretario */}
-        {['Administrador', 'Secretario', 'Director'].includes(user.roles) && (
-          <>
-            <Link to="/directors" className="sidebar-link">
-              Directores
-            </Link>
-            <Link to="/students" className="sidebar-link">
-              Estudiantes
-            </Link>
-            <Link to="/projects" className="sidebar-link">
-              Proyectos
-            </Link>
-            <Link to="/activity-projects" className="sidebar-link">
-              Actividades de proyectos
-            </Link>
-            <Link to="/activities" className="sidebar-link">
-              Actividades de estudiantes
-            </Link>
-          </>
+        {user.roles === 'Administrador' && (
+          <SidebarLink to="/users">Usuarios</SidebarLink>
         )}
       </nav>
     </div>

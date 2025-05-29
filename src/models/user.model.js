@@ -1,46 +1,40 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true
-    },
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: false,
-    },
-    firstName: {
-        type: String,
-        required: false,
-    },
-    lastName: {
-        type: String,
-        required: false,
-    },
-    document: {
-        type: Number,
-        required: false,
-    },
-    academicUnit: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'AcademicUnit',
-        required: false,
-    },
-    roles: {  
-        type: String,
-        enum: ['Estudiante', 'Director', 'Secretario', 'Administrador'],  
-        default: 'Estudiante'
-    }
+  person: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Person',
+    required: true,
+    unique: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  roles: {
+    type: String,
+    enum: ['Administrador', 'Vendedor'],
+    default: 'Vendedor'
+  },
+  status: {
+    type: String,
+    enum: ['Activo', 'Inactivo'],
+    default: 'Activo'
+  }
 }, {
-    timestamps: true
+  timestamps: true
 });
 
 export default mongoose.model('User', userSchema);

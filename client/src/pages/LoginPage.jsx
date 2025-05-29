@@ -1,72 +1,82 @@
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-import '../assets/css/Global.css';  
-import '../assets/css/Table.css';   
-import '../assets/css/Button.css'; 
-
 function LoginPage() {
-  
   const {
-    register, 
-    handleSubmit, 
-    formState: {errors},
+    register,
+    handleSubmit,
+    formState: { errors },
   } = useForm();
 
-  const {signin, errors: signinErrors, isAuthenticated, user} = useAuth();
-  const navigate = useNavigate()
+  const { signin, errors: signinErrors, isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = handleSubmit(data => {
+  const onSubmit = handleSubmit((data) => {
     signin(data);
   });
 
   useEffect(() => {
     if (isAuthenticated) {
-      // Redirige basado en el rol del usuario
-      if (user?.roles === 'Estudiante') {
-        navigate("/my-activities");
+      if (user?.roles === "Administrador") {
+        navigate("/dashboard");
       } else {
-        navigate("/activities");
+        navigate("/dashboard");
       }
     }
   }, [isAuthenticated, user, navigate]);
 
   return (
-    <div className="flex-center-container">
-      <div className="inner-box">
-      <h2 className="form-sub-title">Iniciar sesión</h2>
-          {
-              signinErrors.map((error, i ) => (
-                  <div className="form-error" key={i}>
-                      {error}
-                  </div>
-              ))
-          }
+    <div className="main-content-full">
+    <div className="page-wrapper justify-center min-h-screen mt-32">
+      <div className="form-card">
+        <h2 className="title">Iniciar sesión</h2>
 
-        <form onSubmit={onSubmit}>
-            <input type = "email" {...register("email", {required: true})}
-                className="form-input"
-                placeholder="Email"/>
-                {errors.email && <p className = "form-error">Email es requerido</p>}
-            <input type = "password" {...register("password", {required: true})}
-                className="form-input"
-                placeholder="Contraseña"/>
-                {errors.password && <p className = "form-error">Contraseña es requerida</p>}
-            
-            <button type = "submit"
-            className="button button--save">
-                Ingresar
+        {signinErrors.map((error, i) => (
+          <div key={i} className="form-error">
+            {error}
+          </div>
+        ))}
+
+        <form onSubmit={onSubmit} className="form-grid">
+          <div className="form-section">
+            <label htmlFor="email" className="label">Correo electrónico</label>
+            <input
+              type="email"
+              {...register("email", { required: true })}
+              className="form-input"
+              placeholder="Email"
+              autoFocus
+            />
+            {errors.email && (
+              <p className="form-error">Email es requerido</p>
+            )}
+          </div>
+
+          <div className="form-section">
+            <label htmlFor="password" className="label">Contraseña</label>
+            <input
+              type="password"
+              {...register("password", { required: true })}
+              className="form-input"
+              placeholder="Contraseña"
+            />
+            {errors.password && (
+              <p className="form-error">Contraseña es requerida</p>
+            )}
+          </div>
+
+          <div className="form-section">
+            <button type="submit" className="btn-primary">
+              Ingresar
             </button>
+          </div>
         </form>
-
-        {/*<p className="flex gap-x-2 justify-between">
-            ¿No tienes una cuenta? <Link to="/register" className="text-gray-100"> Registrarse </Link>
-        </p>*/}
       </div>
     </div>
-  )
+    </div>
+  );
 }
 
-export default LoginPage
+export default LoginPage;

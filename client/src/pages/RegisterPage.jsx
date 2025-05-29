@@ -52,13 +52,12 @@ function RegisterPage() {
         <div className="flex-center-container">
             <div className="inner-box">
             <h2 className="form-sub-title">Registrarse</h2>
-                {
-                    registerErrors.map((error, i ) => (
-                        <div className="form-error" key={i}>
-                            {error}
-                        </div>
-                    ))
-                }
+                {Array.isArray(registerErrors) && registerErrors.map((error, i) => (
+                    <div className="form-error" key={i}>
+                        {error}
+                    </div>
+                ))}
+
                 <form onSubmit={onSubmit}>
                     
                     <input type = "text" {...register("username", {required: true})}

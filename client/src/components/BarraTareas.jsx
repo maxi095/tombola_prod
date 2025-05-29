@@ -1,75 +1,90 @@
+// src/components/BarraTareas.jsx
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
-import '../assets/css/Navbar.css';
+import { useEditionFilter } from "../context/EditionFilterContext";
+import { useEditions } from "../context/editionContext";
 
 function BarraTareas() {
-    const { isAuthenticated, logout, user } = useAuth();
-    console.log(user)
-    const [isMobile, setIsMobile] = useState(false);
+  const { isAuthenticated, logout, user } = useAuth();
+  const [isMobile, setIsMobile] = useState(false);
 
-    // Función para verificar el tamaño de la pantalla
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768); // Ajusta el tamaño aquí si es necesario
-        };
+  const { selectedEdition, setSelectedEdition } = useEditionFilter();
+  const { editions, getEditions } = useEditions();
 
-        // Llama a la función una vez para inicializar el valor
-        handleResize();
+  // 1) Detectar móvil / desktop
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
-        // Agrega un event listener al resize
-        window.addEventListener('resize', handleResize);
+  // 2) Cargar ediciones al iniciar sesión
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    getEditions();
+  }, [isAuthenticated, getEditions]);
 
-        // Limpia el event listener cuando el componente se desmonta
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+  // 3) Elegir la última edición *una sola vez* cuando llegan las ediciones
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    if (editions.length === 0) return;
 
-    return (
-        <nav className="navbar">
-            {/* Cambia dinámicamente el texto del título */}
-            <h1 className="navbar-title">
-                {isMobile ? "SIRAE - CSE" : "Sistema de Registro de Actividades Estudiantiles - CSE"}
-            </h1>
+    // selectedEdition puede venir como null o ""
+    if (!selectedEdition) {
+      const ultima = editions[editions.length - 1];
+      setSelectedEdition(ultima._id);
+    }
+  }, [isAuthenticated, editions, selectedEdition, setSelectedEdition]);
 
-            <ul className="navbar-links">
-                {isAuthenticated ? (
-                    <>
-                        <li className="navbar-welcome">Hola {user.firstName}</li>
-                        <li>
-                            <Link 
-                                to='/' 
-                                onClick={logout} 
-                                className="btn btn-danger"
-                            >
-                                Cerrar sesión
-                            </Link>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <li>
-                            <Link 
-                                to='/login' 
-                                className="btn"
-                            >
-                                Iniciar sesión
-                            </Link>
-                        </li>
-                        {/*<li>
-                            <Link 
-                                to='/register' 
-                                className="btn"
-                            >
-                                Registrarse
-                            </Link>
-                        </li>*/}
-                    </>
-                )}
-            </ul>
-        </nav>
-    );
+  return (
+    <div className="fixed top-0 left-0 w-full h-16 bg-gray-800 text-white z-50 flex items-center justify-between px-4 shadow">
+      <h1 className="navbar-title ml-8">
+        {isMobile ? "SGT" : "Sistema de gestión de tómbola"}
+      </h1>
+
+      <ul className="navbar-links flex items-center">
+        {isAuthenticated ? (
+          <>
+            <li>
+              <select
+                className="text-sm px-4 py-1 rounded bg-gray-700 text-white border border-gray-600"
+                value={selectedEdition || ""}
+                onChange={(e) => setSelectedEdition(e.target.value || null)}
+                disabled={editions.length === 0}
+              >
+                <option value="">Todas las ediciones</option>
+                {editions.map((ed) => (
+                  <option key={ed._id} value={ed._id}>
+                    Edición {ed.name}
+                  </option>
+                ))}
+              </select>
+            </li>
+            <li className="ml-4 mr-4 navbar-welcome">
+              Hola {user.person?.firstName}
+            </li>
+            <li className="mr-4">
+              <Link
+                to="/"
+                onClick={logout}
+                className="btn btn-danger navbar-logout"
+              >
+                Cerrar sesión
+              </Link>
+            </li>
+          </>
+        ) : (
+          <li>
+            <Link to="/login" className="btn">
+              Iniciar sesión
+            </Link>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
 }
 
 export default BarraTareas;
