@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 import { useEditionFilter } from "../context/EditionFilterContext";
-import { useEditions } from "../context/editionContext";
+import { useEditions } from "../context/EditionContext";
 
 function BarraTareas() {
   const { isAuthenticated, logout, user } = useAuth();
