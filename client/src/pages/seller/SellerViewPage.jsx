@@ -7,7 +7,7 @@ import { useBingoCards } from "../../context/BingoCardContext";
 import { useSellerPayments } from "../../context/SellerPaymentContext";
 import SellerPaymentReceipt from "../../components/SellerPaymentReceipt"; 
 import ReactDOMServer from "react-dom/server";
-import html2pdf from "html2pdf.js";
+
 import dayjs from "dayjs";
 
 import AssignBingoCardsModal from "../../components/AssignBingoCardsModal"; // o la ruta correcta
@@ -167,7 +167,9 @@ function SellerViewPage() {
       }
     };
   
-    const handleDownloadReceipt = (payment) => {
+    const handleDownloadReceipt = async (payment) => {
+      const html2pdf = (await import("html2pdf.js")).default;
+
       const htmlString = ReactDOMServer.renderToString(
         <SellerPaymentReceipt payment={payment} seller={seller} />
       );

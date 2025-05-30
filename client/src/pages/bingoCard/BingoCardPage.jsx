@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useBingoCards } from "../../context/BingoCardContext";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { FaEye } from "react-icons/fa";
 import dayjs from "dayjs";
 
 import { useEditionFilter } from "../../context/EditionFilterContext";
@@ -234,7 +233,7 @@ function BingoCardPage() {
                           to={`/sale/view/${card.sale?._id}`}
                           className="btn-secondary mr-2 flex items-center gap-1"
                         >
-                          <FaEye /> Ver
+                          Ver
                         </Link>
                       </div>
                     )}

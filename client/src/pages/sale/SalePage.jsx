@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSales } from "../../context/SaleContext";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { FaEye, FaTimes } from "react-icons/fa";
 import dayjs from "dayjs";
 
 import { useEditionFilter } from "../../context/EditionFilterContext";
@@ -192,13 +191,13 @@ function SalePage() {
                           to={`/sale/view/${sale._id}`}
                           className="btn-secondary mr-2 flex items-center gap-1"
                         >
-                          <FaEye /> Ver
+                        Ver
                         </Link>
                         <button
                           onClick={() => handleCancel(sale._id)}
                           className="btn-cancel flex items-center gap-1"
                         >
-                          <FaTimes /> Anular
+                        Anular
                         </button>
                       </div>
                     )}

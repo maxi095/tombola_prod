@@ -23,7 +23,7 @@ export const connectDB = async () => {
         const mongoURI = process.env.MONGO_PUBLIC_URL || 'mongodb://localhost/tomboladb';
         console.log("Conectando con URI:", process.env.MONGO_PUBLIC_URL);
         
-        //const mongoURI = 'mongodb://mongo:fGpXlcAPtbQLQSZUomgxHvWKBDxzXkRT@autorack.proxy.rlwy.net:41347';
+        //const mongoURI = 'mongodb://localhost/tomboladb';
 
         //BD prueba 18/09/2024
         //const mongoURI = 'mongodb://mongo:zuCHpzaGmDAisenVvriLNotBwtcqHInG@junction.proxy.rlwy.net:38862'

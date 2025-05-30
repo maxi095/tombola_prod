@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSales } from "../../context/SaleContext";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { FaEye } from "react-icons/fa";
 import dayjs from "dayjs";
 
 import { useEditionFilter } from "../../context/EditionFilterContext";
@@ -146,7 +145,7 @@ function SaleTarjetaUnicaPage() {
                         to={`/sale/view/${sale._id}`}
                         className="btn-secondary flex items-center gap-1"
                       >
-                        <FaEye /> Ver
+                      Ver
                       </Link>
                     </td>
                   </tr>

@@ -3,9 +3,7 @@ import { useSellerPayments } from "../../context/SellerPaymentContext";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import SellerPaymentReceipt from "../../components/SellerPaymentReceipt";
-import html2pdf from "html2pdf.js";
 import ReactDOMServer from "react-dom/server";
-import { FaTimes } from "react-icons/fa";
 
 import { useEditionFilter } from "../../context/EditionFilterContext";
 
@@ -99,21 +97,23 @@ function SellerPaymentPage() {
     }
   };
 
-  const handleDownloadReceipt = (payment) => {
-    const htmlString = ReactDOMServer.renderToString(
-      <SellerPaymentReceipt payment={payment} />
-    );
-  
-    const opt = {
-      margin:       0.5,
-      filename:     `Recibo_Pago_${payment.sellerPaymentNumber || "sin-numero"}.pdf`,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-  
-    html2pdf().from(htmlString).set(opt).save();
+  const handleDownloadReceipt = async (payment) => {
+  const html2pdf = (await import("html2pdf.js")).default;
+
+  const htmlString = ReactDOMServer.renderToString(
+    <SellerPaymentReceipt payment={payment}/>
+  );
+
+  const opt = {
+    margin:       0.5,
+    filename:     `Recibo_Pago_${payment.sellerPaymentNumber || "sin-numero"}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
   };
+
+  html2pdf().from(htmlString).set(opt).save();
+};
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -235,7 +235,7 @@ function SellerPaymentPage() {
                     <button onClick={() => handleDownloadReceipt(payment)} className="text-blue-600 underline mr-2">Descargar recibo</button>
                     {payment.status === "Activo" ? (
                       <button onClick={() => handleCancel(payment._id)} className="btn-cancel flex items-center gap-1">
-                        <FaTimes /> Anular
+                      Anular
                       </button>
                     ) : <span className="text-gray-400 text-sm"></span>}
                   </td>

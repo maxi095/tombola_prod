@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSellers } from "../../context/SellerContext"; 
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { FaEye } from "react-icons/fa";
 
 
 function SellerPage() {
@@ -168,7 +167,7 @@ function SellerPage() {
                   <td className="table-cell">
                     <div className="btn-group">
                       <Link to={`/seller/view/${seller._id}`} className="btn-secondary mr-2 flex items-center gap-1">
-                        <FaEye /> Ver
+                        Ver
                       </Link>
                       <Link to={`/seller/edit/${seller._id}`} className="btn-secondary mr-2">
                         Editar

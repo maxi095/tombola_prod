@@ -6,7 +6,6 @@ import QuotaPaymentModal from "../../components/QuotaPaymentModal";
 import FullPaymentModal from "../../components/FullPaymentModal";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { FaTimes } from "react-icons/fa";
 
 dayjs.extend(utc);
 
@@ -185,7 +184,7 @@ function SaleViewPage() {
                   onClick={() => handleCancelPayment(quota)}
                   className="btn-cancel flex items-center gap-1"
                 >
-                  <FaTimes /> Anular Pago
+                Anular Pago
                 </button>
               ) : (
                 <button
