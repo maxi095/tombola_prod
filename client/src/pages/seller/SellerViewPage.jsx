@@ -396,7 +396,7 @@ function SellerViewPage() {
                         <td className="table-cell">{payment.edition?.name || "N/A"}</td>
                         <td className="table-cell">${(payment.cashAmount + payment.transferAmount + payment.checkAmount ?? 0).toFixed(2)}</td>
                         <td className="table-cell">${(payment.commissionAmount ?? 0).toFixed(2)}</td>
-                        <td className="table-cell">${((payment.cashAmount + payment.transferAmount + payment.checkAmount ?? 0) - (payment.commissionAmount ?? 0)).toFixed(2)}</td>
+                        <td className="table-cell">${(((payment.cashAmount ?? 0) + (payment.transferAmount ?? 0) + (payment.checkAmount ?? 0)) - (payment.commissionAmount ?? 0)).toFixed(2)}</td>
                         <td className="table-cell">{dayjs(payment.date).format("DD/MM/YYYY")}</td>
                         <td className="table-cell">
                           {payment.status === "Anulado" ? (
