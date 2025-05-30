@@ -21,6 +21,7 @@ export const connectDB = async () => {
         // Usa la URI de MongoDB desde variables de entorno, o una URI local como fallback
         
         const mongoURI = process.env.MONGO_PUBLIC_URL || 'mongodb://localhost/tomboladb';
+        console.log("Conectando con URI:", process.env.MONGO_PUBLIC_URL);
         
         //const mongoURI = 'mongodb://mongo:fGpXlcAPtbQLQSZUomgxHvWKBDxzXkRT@autorack.proxy.rlwy.net:41347';
 
