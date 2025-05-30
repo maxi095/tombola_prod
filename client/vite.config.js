@@ -18,5 +18,6 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['html2pdf.js'],
+    include: ['react-icons/fa']
   },
 });
