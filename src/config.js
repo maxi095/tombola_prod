@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // TEMPORAL: Hardcodeado para testing  
-//const HARDCODED_MONGO_URI = 'mongodb+srv://mpereyra:m94sqUDuAXvCnJJ9@odonto.88lbv8a.mongodb.net/odonto?retryWrites=true&w=majority';
+const HARDCODED_MONGO_URI = 'mongodb+srv://pereyramaxi095:Cz1Wick1eOFbviMW@tombola.ysuih4b.mongodb.net/?retryWrites=true&w=majority&appName=Tombola';
 
 console.log('🔍 RAILWAY DEBUG - TODAS las variables de entorno:');
 console.log('NODE_ENV:', process.env.NODE_ENV);
