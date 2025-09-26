@@ -67,10 +67,12 @@ import BingoCardStatusPage from "./pages/bingoCard/BingoCardStatusPage";
 
 import { QuotaProvider } from "./context/QuotaContext";
 import ExpiredQuotasPage from "./pages/quota/ExpiredQuotasPage";
+import QuotasPage from "./pages/quota/QuotasPage";
 
 import { SellerPaymentProvider } from "./context/SellerPaymentContext";
 import SellerPaymentPage from "./pages/sellerPayment/SellerPaymentPage";
 import SellerPaymentFormPage from "./pages/sellerPayment/SellerPaymentFormPage";
+import SellerPaymentView from "./pages/sellerPayment/SellerPaymentView";
 
 import { DashboardProvider } from "./context/DashboardContext";
 import DashboardPage from "./pages/dashboard/DashboardPage";
@@ -204,6 +206,7 @@ function Layout() {
 
 
           <Route path="/quotas" element={<ProtectedRoute allowedRoles={['Administrador']}><ExpiredQuotasPage /></ProtectedRoute>} />
+          <Route path="/allQuotas" element={<ProtectedRoute allowedRoles={['Administrador']}><QuotasPage /></ProtectedRoute>} />
 
           <Route path="/bingoCards" element={<ProtectedRoute allowedRoles={['Administrador']}><BingoCardPage /></ProtectedRoute>} />
           <Route path="/bingoCardStatus" element={<ProtectedRoute allowedRoles={['Administrador']}><BingoCardStatusPage /></ProtectedRoute>} />
@@ -219,6 +222,7 @@ function Layout() {
 
           <Route path="/sellerPayments" element={<ProtectedRoute allowedRoles={['Administrador']}><SellerPaymentPage /></ProtectedRoute>} />
           <Route path="/sellerPayment/new" element={<ProtectedRoute allowedRoles={['Administrador']}><SellerPaymentFormPage /></ProtectedRoute>} />
+          <Route path="/sellerPayment/view/:id" element={<ProtectedRoute allowedRoles={['Administrador']}><SellerPaymentView /></ProtectedRoute>} />
 
           <Route path="/dashboard" element={<ProtectedRoute allowedRoles={['Administrador']}><DashboardPage /></ProtectedRoute>} />
 

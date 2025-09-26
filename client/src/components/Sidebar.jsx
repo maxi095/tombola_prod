@@ -31,6 +31,7 @@ const Sidebar = () => {
             <SidebarLink to="/bingoCards">Cartones</SidebarLink>
             <SidebarLink to="/sales">Ventas</SidebarLink>
             <SidebarLink to="/salesTarjetaUnica">Ventas Tarjeta única</SidebarLink>
+            <SidebarLink to="/allQuotas">Historial de actividad</SidebarLink>
             <SidebarLink to="/quotas">Cuotas vencidas</SidebarLink>
             <SidebarLink to="/clients">Asociados</SidebarLink>
             <SidebarLink to="/sellers">Vendedores</SidebarLink>

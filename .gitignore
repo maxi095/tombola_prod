@@ -1,5 +1,10 @@
 node_modules
 .env
+client/.env
+client/dist
+client/build
 Dockerfile
 docker-compose.yml
 client/src/components/Sidebar.jsx
+*.log
+.DS_Store
