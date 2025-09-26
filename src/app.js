@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 
 import authRoutes from './routes/auth.routes.js';
+import userRoutes from './routes/user.routes.js';
 import editionRoutes from './routes/edition.routes.js';
 import sellerRoutes from './routes/seller.routes.js';
 import clientRoutes from './routes/client.routes.js';
