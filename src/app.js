@@ -14,6 +14,7 @@ import projectRoutes from './routes/project.routes.js';
 import dimensionRoutes from './routes/dimension.routes.js';
 import academicUnitRoutes from './routes/academicUnit.routes.js';
 import activityProjectRoutes from './routes/activityProject.routes.js';
+import editionRoutes from './routes/edition.routes.js';
 
 // Configuración para ES6 modules
 const __filename = fileURLToPath(import.meta.url);
